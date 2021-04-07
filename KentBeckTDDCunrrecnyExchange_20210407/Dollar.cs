@@ -11,8 +11,7 @@ namespace KentBeckTDD_CurrencyExchange_20210407
 
         public Dollar Time(int multiplier)
         {
-            Amount = Amount * multiplier;
-            return null;
+            return new Dollar(Amount * multiplier);
         }
     }
 }
