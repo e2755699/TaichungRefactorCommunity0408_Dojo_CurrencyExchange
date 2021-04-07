@@ -34,7 +34,9 @@ namespace KentBeckTDD_CurrencyExchange_20210407
         public void TestEquality()
         {
             Assert.IsTrue(new Dollar(5).Equals(new Dollar(5)));
-            Assert.IsFalse(new Dollar(5).Equals(new Dollar(6)));
+            Assert.IsFalse(new Dollar(5).Equals(new Dollar(6)));       
+            Assert.IsTrue(new Franc(5).Equals(new Franc(5)));
+            Assert.IsFalse(new Franc(5).Equals(new Franc(6)));
         }
 
         //Amount private
