@@ -15,7 +15,7 @@ namespace KentBeckTDD_CurrencyExchange_20210407
         //{
         //    var five = new Dollar(5);
         //    five.Time(2);
-        //    Assert.AreEqual(10, five.Amount);
+        //    Assert.AreEqual(10, five._amount);
         //}
 
         //處理副作用
@@ -24,9 +24,9 @@ namespace KentBeckTDD_CurrencyExchange_20210407
         //{
         //    var five = new Dollar(5);
         //    var product = five.Time(2);
-        //    Assert.AreEqual(new Dollar(10).Amount, product.Amount);
+        //    Assert.AreEqual(new Dollar(10)._amount, product._amount);
         //    product = five.Time(3);
-        //    Assert.AreEqual(new Dollar(15).Amount, product.Amount);
+        //    Assert.AreEqual(new Dollar(15)._amount, product._amount);
         //}
 
         //equal
@@ -40,7 +40,7 @@ namespace KentBeckTDD_CurrencyExchange_20210407
         //    Assert.IsFalse(new Franc(5).Equals(new Dollar(5)));
         //}
 
-        //Amount private
+        //_amount private
         //[Test]
         //public void TestMultiplication()
         //{
@@ -81,7 +81,6 @@ namespace KentBeckTDD_CurrencyExchange_20210407
             Assert.AreEqual(Money.Dollar(15), five.Time(3));
         }
 
-
         //5法朗*2=10法朗
         [Test]
         public void TestFrancMultiplication()
@@ -89,6 +88,14 @@ namespace KentBeckTDD_CurrencyExchange_20210407
             Money five = Money.Franc(5);
             Assert.AreEqual(Money.Franc(10), five.Time(2));
             Assert.AreEqual(Money.Franc(15), five.Time(3));
+        }
+
+        //引入貨幣概念
+        [Test]
+        public void TestCurrency()
+        {
+            Assert.AreEqual("USD",Money.Dollar(5).Currency());
+            Assert.AreEqual("CHF",Money.Franc(5).Currency());
         }
     }
 }
