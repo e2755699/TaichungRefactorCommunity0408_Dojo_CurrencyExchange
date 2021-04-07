@@ -35,9 +35,18 @@ namespace KentBeckTDD_CurrencyExchange_20210407
         //{
         //    Assert.IsTrue(new Dollar(5).Equals(new Dollar(5)));
         //    Assert.IsFalse(new Dollar(5).Equals(new Dollar(6)));       
-        //    Assert.IsTrue(new Franc(5).Equals(new Franc(5)));
-        //    Assert.IsFalse(new Franc(5).Equals(new Franc(6)));
-        //    Assert.IsFalse(new Franc(5).Equals(new Dollar(5)));
+        ////    Assert.IsTrue(new Franc(5).Equals(new Franc(5)));
+        ////    Assert.IsFalse(new Franc(5).Equals(new Franc(6)));
+        ////    Assert.IsFalse(new Franc(5).Equals(new Dollar(5)));
+        //}
+
+        //5法朗*2=10法朗
+        //[Test]
+        //public void TestFrancMultiplication()
+        //{
+        //    Money five = Money.Franc(5);
+        //    Assert.AreEqual(Money.Franc(10), five.Time(2));
+        //    Assert.AreEqual(Money.Franc(15), five.Time(3));
         //}
 
         //_amount private
@@ -61,34 +70,16 @@ namespace KentBeckTDD_CurrencyExchange_20210407
         //    Assert.IsFalse(new Franc(5).Equals(new Dollar(5)));
         //}
 
-        //比較不同幣別
-        [Test]
-        public void TestEquality()
-        {
-            Assert.IsTrue(Money.Dollar(5).Equals(Money.Dollar(5)));
-            Assert.IsFalse(Money.Dollar(5).Equals(Money.Dollar(6)));
-            Assert.IsTrue(Money.Franc(5).Equals(Money.Franc(5)));
-            Assert.IsFalse(Money.Franc(5).Equals(Money.Franc(6)));
-            Assert.IsFalse(Money.Franc(5).Equals(Money.Dollar(5)));
-        }
-
         //Money建立回傳Dollar and Franc的工廠方法
-        [Test]
-        public void TestMultiplication()
-        {
-            Money five = Money.Dollar(5);
-            Assert.AreEqual(Money.Dollar(10), five.Time(2));
-            Assert.AreEqual(Money.Dollar(15), five.Time(3));
-        }
+        //[Test]
+        //public void TestMultiplication()
+        //{
+        //    Money five = Money.Dollar(5);
+        //    Assert.AreEqual(Money.Dollar(10), five.Time(2));
+        //    Assert.AreEqual(Money.Dollar(15), five.Time(3));
+        //}
 
-        //5法朗*2=10法朗
-        [Test]
-        public void TestFrancMultiplication()
-        {
-            Money five = Money.Franc(5);
-            Assert.AreEqual(Money.Franc(10), five.Time(2));
-            Assert.AreEqual(Money.Franc(15), five.Time(3));
-        }
+
 
         //引入貨幣概念
         [Test]
@@ -96,6 +87,21 @@ namespace KentBeckTDD_CurrencyExchange_20210407
         {
             Assert.AreEqual("USD",Money.Dollar(5).Currency());
             Assert.AreEqual("CHF",Money.Franc(5).Currency());
+        }
+
+        //比較不同幣值
+        [Test]
+        public void TestDiffCurrency()
+        {
+            Assert.IsFalse(Money.Franc(5).Equals(Money.Dollar(5)));
+        }
+
+        //5美元+5美元=10美元
+        [Test]
+        public void TestSampleAddition()
+        {
+            Money sum = Money.Dollar(5).plus(Money.Dollar(5));
+            Assert.AreEqual(Money.Dollar(10), sum);
         }
     }
 }

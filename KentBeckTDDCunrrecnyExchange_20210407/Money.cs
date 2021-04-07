@@ -42,5 +42,10 @@ namespace KentBeckTDD_CurrencyExchange_20210407
         {
             return new Money(account, "CHF");
         }
+
+        public Money plus(Money dollar)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
