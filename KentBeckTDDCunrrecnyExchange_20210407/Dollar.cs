@@ -16,7 +16,7 @@ namespace KentBeckTDD_CurrencyExchange_20210407
 
         public override bool Equals(object obj)
         {
-            return true;
+            return Amount == ((Dollar) obj).Amount;
         }
     }
 }
