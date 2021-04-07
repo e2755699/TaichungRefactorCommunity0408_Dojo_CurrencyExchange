@@ -1,6 +1,6 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
-namespace KentBeckTDDCunrrecnyExchange_20210407
+namespace KentBeckTDD_CurrencyExchange_20210407
 {
     public class Tests
     {
@@ -9,10 +9,13 @@ namespace KentBeckTDDCunrrecnyExchange_20210407
         {
         }
 
+        //5美元*2 = 10美元
         [Test]
-        public void Test1()
+        public void TestMultiplication()
         {
-            Assert.Pass();
+            var five = new Dollar(5);
+            five.Time(2);
+            Assert.AreEqual(10, five.Amount);
         }
     }
 }
