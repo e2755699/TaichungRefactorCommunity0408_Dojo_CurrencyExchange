@@ -45,5 +45,14 @@ namespace KentBeckTDD_CurrencyExchange_20210407
             Assert.AreEqual(new Dollar(10), five.Time(2));
             Assert.AreEqual(new Dollar(15), five.Time(3));
         }
+
+        //5法朗*2=10法朗
+        [Test]
+        public void TestFrancMultiplication()
+        {
+            Franc five = new Franc(5);
+            Assert.AreEqual(new Franc(10), five.Time(2));
+            Assert.AreEqual(new Franc(15), five.Time(3));
+        }
     }
 }
