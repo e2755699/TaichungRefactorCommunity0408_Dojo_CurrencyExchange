@@ -6,7 +6,7 @@ namespace KentBeckTDD_CurrencyExchange_20210407
 
         public override bool Equals(object obj)
         {
-            return Amount == ((Money)obj).Amount;
+            return Amount == ((Money)obj).Amount && GetType() == obj.GetType();
         }
 
 
