@@ -8,7 +8,7 @@ namespace KentBeckTDD_CurrencyExchange_20210407
             Amount = amount;
         }
 
-        public Dollar Time(int multiplier)
+        public override Money Time(int multiplier)
         {
             return new Dollar(Amount * multiplier);
         }

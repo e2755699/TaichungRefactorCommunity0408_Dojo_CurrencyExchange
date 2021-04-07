@@ -41,22 +41,14 @@ namespace KentBeckTDD_CurrencyExchange_20210407
         //}
 
         //Amount private
-        [Test]
-        public void TestMultiplication()
-        {
-            var five = new Dollar(5);
-            Assert.AreEqual(new Dollar(10), five.Time(2));
-            Assert.AreEqual(new Dollar(15), five.Time(3));
-        }
+        //[Test]
+        //public void TestMultiplication()
+        //{
+        //    var five = new Dollar(5);
+        //    Assert.AreEqual(new Dollar(10), five.Time(2));
+        //    Assert.AreEqual(new Dollar(15), five.Time(3));
+        //}
 
-        //5法朗*2=10法朗
-        [Test]
-        public void TestFrancMultiplication()
-        {
-            Franc five = new Franc(5);
-            Assert.AreEqual(new Franc(10), five.Time(2));
-            Assert.AreEqual(new Franc(15), five.Time(3));
-        }
 
         //共用Equal
         //[Test]
@@ -73,11 +65,30 @@ namespace KentBeckTDD_CurrencyExchange_20210407
         [Test]
         public void TestEquality()
         {
-            //Assert.IsTrue(new Dollar(5).Equals(new Dollar(5)));
-            //Assert.IsFalse(new Dollar(5).Equals(new Dollar(6)));
-            //Assert.IsTrue(new Franc(5).Equals(new Franc(5)));
-            //Assert.IsFalse(new Franc(5).Equals(new Franc(6)));
-            Assert.IsFalse(new Franc(5).Equals(new Dollar(5)));
+            Assert.IsTrue(Money.Dollar(5).Equals(Money.Dollar(5)));
+            Assert.IsFalse(Money.Dollar(5).Equals(Money.Dollar(6)));
+            Assert.IsTrue(Money.Franc(5).Equals(Money.Franc(5)));
+            Assert.IsFalse(Money.Franc(5).Equals(Money.Franc(6)));
+            Assert.IsFalse(Money.Franc(5).Equals(Money.Dollar(5)));
+        }
+
+        //Money建立回傳Dollar and Franc的工廠方法
+        [Test]
+        public void TestMultiplication()
+        {
+            Money five = Money.Dollar(5);
+            Assert.AreEqual(Money.Dollar(10), five.Time(2));
+            Assert.AreEqual(Money.Dollar(15), five.Time(3));
+        }
+
+
+        //5法朗*2=10法朗
+        [Test]
+        public void TestFrancMultiplication()
+        {
+            Money five = Money.Franc(5);
+            Assert.AreEqual(Money.Franc(10), five.Time(2));
+            Assert.AreEqual(Money.Franc(15), five.Time(3));
         }
     }
 }

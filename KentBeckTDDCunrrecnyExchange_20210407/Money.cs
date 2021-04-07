@@ -1,6 +1,6 @@
 namespace KentBeckTDD_CurrencyExchange_20210407
 {
-    public class Money
+    public abstract class Money
     {
         protected int Amount;
 
@@ -10,5 +10,16 @@ namespace KentBeckTDD_CurrencyExchange_20210407
         }
 
 
+        public static Dollar Dollar(int amount)
+        {
+            return new Dollar(amount);
+        }
+
+        public abstract Money Time(int multiplier);
+
+        public static Money Franc(int amount)
+        {
+            return new Franc(amount);
+        }
     }
 }
