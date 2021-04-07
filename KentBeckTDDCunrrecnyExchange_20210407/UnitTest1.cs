@@ -29,5 +29,12 @@ namespace KentBeckTDD_CurrencyExchange_20210407
             Assert.AreEqual(new Dollar(15).Amount, product.Amount);
         }
 
+        //equal
+        [Test]
+        public void TestEquality()
+        {
+            Assert.IsTrue(new Dollar(5).Equals(new Dollar(5)));
+        }
+
     }
 }
