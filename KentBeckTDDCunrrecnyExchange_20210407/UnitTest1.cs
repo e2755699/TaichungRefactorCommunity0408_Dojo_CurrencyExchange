@@ -10,12 +10,24 @@ namespace KentBeckTDD_CurrencyExchange_20210407
         }
 
         //5美元*2 = 10美元
+        //[Test]
+        //public void TestMultiplication()
+        //{
+        //    var five = new Dollar(5);
+        //    five.Time(2);
+        //    Assert.AreEqual(10, five.Amount);
+        //}
+
+        //處理副作用
         [Test]
         public void TestMultiplication()
         {
             var five = new Dollar(5);
-            five.Time(2);
-            Assert.AreEqual(10, five.Amount);
+            var product = five.Time(2);
+            Assert.AreEqual(new Dollar(10).Amount, product.Amount);
+            product = five.Time(3);
+            Assert.AreEqual(new Dollar(15).Amount, product.Amount);
         }
+
     }
 }

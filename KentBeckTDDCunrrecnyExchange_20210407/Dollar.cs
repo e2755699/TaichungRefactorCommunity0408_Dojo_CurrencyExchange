@@ -9,9 +9,10 @@ namespace KentBeckTDD_CurrencyExchange_20210407
             Amount = amount;
         }
 
-        public void Time(int multiplier)
+        public Dollar Time(int multiplier)
         {
             Amount = Amount * multiplier;
+            return null;
         }
     }
 }
