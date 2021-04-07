@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace KentBeckTDD_CurrencyExchange_20210407
 {
@@ -9,99 +10,114 @@ namespace KentBeckTDD_CurrencyExchange_20210407
         {
         }
 
-        //5美元*2 = 10美元
-        //[Test]
-        //public void TestMultiplication()
-        //{
-        //    var five = new Dollar(5);
-        //    five.Time(2);
-        //    Assert.AreEqual(10, five._amount);
-        //}
-
-        //處理副作用
-        //[Test]
-        //public void TestMultiplication()
-        //{
-        //    var five = new Dollar(5);
-        //    var product = five.Time(2);
-        //    Assert.AreEqual(new Dollar(10)._amount, product._amount);
-        //    product = five.Time(3);
-        //    Assert.AreEqual(new Dollar(15)._amount, product._amount);
-        //}
-
-        //equal
-        //[Test]
-        //public void TestEquality()
-        //{
-        //    Assert.IsTrue(new Dollar(5).Equals(new Dollar(5)));
-        //    Assert.IsFalse(new Dollar(5).Equals(new Dollar(6)));       
-        ////    Assert.IsTrue(new Franc(5).Equals(new Franc(5)));
-        ////    Assert.IsFalse(new Franc(5).Equals(new Franc(6)));
-        ////    Assert.IsFalse(new Franc(5).Equals(new Dollar(5)));
-        //}
-
-        //5法朗*2=10法朗
-        //[Test]
-        //public void TestFrancMultiplication()
-        //{
-        //    Money five = Money.Franc(5);
-        //    Assert.AreEqual(Money.Franc(10), five.Time(2));
-        //    Assert.AreEqual(Money.Franc(15), five.Time(3));
-        //}
-
-        //_amount private
-        //[Test]
-        //public void TestMultiplication()
-        //{
-        //    var five = new Dollar(5);
-        //    Assert.AreEqual(new Dollar(10), five.Time(2));
-        //    Assert.AreEqual(new Dollar(15), five.Time(3));
-        //}
-
-
-        //共用Equal
-        //[Test]
-        //public void TestEquality()
-        //{
-        //    Assert.IsTrue(new Dollar(5).Equals(new Dollar(5)));
-        //    Assert.IsFalse(new Dollar(5).Equals(new Dollar(6)));       
-        //    Assert.IsTrue(new Franc(5).Equals(new Franc(5)));
-        //    Assert.IsFalse(new Franc(5).Equals(new Franc(6)));
-        //    Assert.IsFalse(new Franc(5).Equals(new Dollar(5)));
-        //}
-
-        //Money建立回傳Dollar and Franc的工廠方法
-        //[Test]
-        //public void TestMultiplication()
-        //{
-        //    Money five = Money.Dollar(5);
-        //    Assert.AreEqual(Money.Dollar(10), five.Time(2));
-        //    Assert.AreEqual(Money.Dollar(15), five.Time(3));
-        //}
-
-
-
-        //引入貨幣概念
         [Test]
-        public void TestCurrency()
+        public void dollar_five_add_dollar_five()
         {
-            Assert.AreEqual("USD",Money.Dollar(5).Currency());
-            Assert.AreEqual("CHF",Money.Franc(5).Currency());
+            var dollar = new Dollar(5);
+            dollar.Plus(new Dollar(5));
+            Assert.AreEqual(10, dollar.Amount);
         }
 
-        //比較不同幣值
         [Test]
-        public void TestDiffCurrency()
+        public void dollar_ten_add_dollar_five()
         {
-            Assert.IsFalse(Money.Franc(5).Equals(Money.Dollar(5)));
+            var dollar = new Dollar(10);
+            dollar.Plus(new Dollar(5));
+            Assert.AreEqual(15, dollar.Amount);
         }
 
-        //5美元+5美元=10美元
         [Test]
-        public void TestSampleAddition()
+        public void one_dollar_transfer_two_franc()
         {
-            Money sum = Money.Dollar(5).plus(Money.Dollar(5));
-            Assert.AreEqual(Money.Dollar(10), sum);
+            var dollar = new Dollar(1);
+            var transform = new Transform();
+            var actual = transform.Transfer(dollar, Currency.Franc);
+            var expected = new Franc(2);
+            Assert.AreEqual(expected.Amount, actual.Amount);
+        }
+
+        [Test]
+        public void two_franc_transfer_one_dollar()
+        {
+            var franc = new Franc(2);
+            var transform = new Transform();
+            var actual = transform.Transfer(franc, Currency.Dollar);
+            var expected = new Dollar(1);
+            Assert.AreEqual(expected.Amount, actual.Amount);
+        }
+
+        [Test]
+        public void one_dollar_plus_two_franc_transfer_to_two_dollar()
+        {
+            var dollar = new Dollar(1);
+            var franc = new Franc(2);
+            dollar.Plus(franc);
+            Assert.AreEqual(new Dollar(2).Amount, dollar.Amount);
+
+        }
+
+    }
+
+    public class Transform
+    {
+        public Money Transfer(Money money, Currency currency)
+        {
+            var exchangeRateMapping = new Dictionary<Currency, Dictionary<Currency, decimal>>
+            {
+                {
+                    Currency.Dollar, new Dictionary<Currency, decimal>()
+                    {
+                        {Currency.Franc, 2},
+                        {Currency.Dollar, 1}
+                    }
+                },
+                {
+                    Currency.Franc, new Dictionary<Currency, decimal>()
+                    {
+                        {Currency.Dollar, 0.5m},
+                        {Currency.Franc, 1}
+                    }
+                }
+            };
+            var exchangeRate = exchangeRateMapping[money.Currency][currency];
+
+            return new Money(money.Amount * exchangeRate, currency);
+        }
+    }
+
+    public class Franc : Money
+    {
+        public Franc(decimal amount):base(amount,Currency.Franc)
+        {
+        }
+        
+    }
+
+    public class Money
+    {
+        public Money(decimal amount, Currency currency)
+        {
+            Amount = amount;
+            Currency = currency;
+        }
+
+        public Currency Currency { get; set; }
+
+        public decimal Amount { get; set; }
+    }
+
+    public class Dollar : Money
+    {
+
+        public Dollar(decimal amount): base(amount, Currency.Dollar)
+        {
+        }
+
+        public void Plus(Money money)
+        {
+            var transferMoney = new Transform().Transfer(money, Currency);
+
+            Amount += transferMoney.Amount;
         }
     }
 }
