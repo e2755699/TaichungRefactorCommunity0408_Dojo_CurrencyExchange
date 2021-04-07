@@ -19,15 +19,15 @@ namespace KentBeckTDD_CurrencyExchange_20210407
         //}
 
         //處理副作用
-        [Test]
-        public void TestMultiplication()
-        {
-            var five = new Dollar(5);
-            var product = five.Time(2);
-            Assert.AreEqual(new Dollar(10).Amount, product.Amount);
-            product = five.Time(3);
-            Assert.AreEqual(new Dollar(15).Amount, product.Amount);
-        }
+        //[Test]
+        //public void TestMultiplication()
+        //{
+        //    var five = new Dollar(5);
+        //    var product = five.Time(2);
+        //    Assert.AreEqual(new Dollar(10).Amount, product.Amount);
+        //    product = five.Time(3);
+        //    Assert.AreEqual(new Dollar(15).Amount, product.Amount);
+        //}
 
         //equal
         [Test]
@@ -37,5 +37,13 @@ namespace KentBeckTDD_CurrencyExchange_20210407
             Assert.IsFalse(new Dollar(5).Equals(new Dollar(6)));
         }
 
+        //Amount private
+        [Test]
+        public void TestMultiplication()
+        {
+            var five = new Dollar(5);
+            Assert.AreEqual(new Dollar(10), five.Time(2));
+            Assert.AreEqual(new Dollar(15), five.Time(3));
+        }
     }
 }
